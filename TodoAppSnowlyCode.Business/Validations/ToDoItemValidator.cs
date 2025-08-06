@@ -13,7 +13,7 @@ namespace TodoAppSnowlyCode.Business.Validations
                 .MaximumLength(30);
 
             RuleFor(p => p.IsCompleted)
-                .NotEmpty();
+                .NotNull();
 
             RuleFor(p => p.CreatedAt)
                 .LessThan(p => p.DueDate);

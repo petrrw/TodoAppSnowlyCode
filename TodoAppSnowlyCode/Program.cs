@@ -47,3 +47,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+// So IT tests can work properly..
+public partial class Program { }
