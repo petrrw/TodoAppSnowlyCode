@@ -7,34 +7,42 @@
     public interface IRepository<TEntity>
     {
         /// <summary>
-        /// Returns all records
+        /// Retrieves all entities from the data store.
         /// </summary>
-        /// <returns>List of all found records</returns>
-        List<TEntity> GetAll();
+        /// <param name="ct">Cancellation token.</param>
+        /// <returns>List of all entities.</returns>
+        Task<List<TEntity>> GetAllAsync(CancellationToken ct);
 
         /// <summary>
-        /// Finds an entity by id
+        /// Finds an entity by id.
         /// </summary>
-        /// <param name="id">Entity ID</param>
-        /// <returns>Found entity, otherwise null</returns>
-        TEntity? FindById(int id);
+        /// <param name="id">Entity ID.</param>
+        /// <param name="ct">Cancellation token.</param>
+        /// <returns>Found entity if exists, otherwise null.</returns>
+        Task<TEntity?> GetByIdAsync(int id, CancellationToken ct);
 
         /// <summary>
-        /// Adds a new entity
+        /// Adds a new entity.
         /// </summary>
-        /// <param name="entity">Entity to add</param>
-        void Add(TEntity entity);
+        /// <param name="entity">Entity to add.</param>
+        /// <param name="ct">Cancellation token.</param>
+        /// <returns>The added entity.</returns>
+        Task<TEntity> AddAsync(TEntity entity, CancellationToken ct);
 
         /// <summary>
-        /// Updates an existing entity
+        /// Updates an existing entity.
         /// </summary>
-        /// <param name="entity"></param>
-        void Update(TEntity entity);
+        /// <param name="entity">Updated entity.</param>
+        /// <param name="ct">Cancellation token.</param>
+        /// <returns>Task</returns>
+        Task<TEntity> UpdateAsync(TEntity entity, CancellationToken ct);
 
         /// <summary>
-        /// Removes an entity
+        /// Removes an entity.
         /// </summary>
-        /// <param name="id"></param>
-        void Remove(int id);
+        /// <param name="id">ID of the item to remove.</param>
+        /// <param name="ct">Cancellation token.</param>
+        /// <returns>Task</returns>
+        Task RemoveAsync(int id, CancellationToken ct);
     }
 }

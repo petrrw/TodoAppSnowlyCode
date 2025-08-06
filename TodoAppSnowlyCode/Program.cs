@@ -1,7 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using TodoAppSnowlyCode.AutoMapping;
+using TodoAppSnowlyCode.Business.Interfaces;
+using TodoAppSnowlyCode.Business.Services;
+using TodoAppSnowlyCode.Business.Validations;
 using TodoAppSnowlyCode.Data.DbSetup;
 using TodoAppSnowlyCode.Data.Interfaces;
 using TodoAppSnowlyCode.Data.Repositories;
+using TodoAppSnowlyCode.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,8 +22,16 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IToDoItemRepository, ToDoItemRepository>();
+builder.Services.AddScoped<IToDoItemService, ToDoItemService>();
+builder.Services.AddScoped<ToDoItemValidator>();
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<ToDoItemProfile>();
+});
+
 
 var app = builder.Build();
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

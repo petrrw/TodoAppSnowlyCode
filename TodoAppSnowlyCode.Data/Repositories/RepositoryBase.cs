@@ -31,29 +31,42 @@ namespace TodoAppSnowlyCode.Data.Repositories
         }
 
         /// <inheritdoc/>
-        public List<TEntity> GetAll() => dbSet.ToList();
+        public async Task<List<TEntity>> GetAllAsync(CancellationToken ct) => await dbSet.ToListAsync(ct);
 
         /// <inheritdoc/>
-        public TEntity? FindById(int id) => dbSet.Find(id);
-
-        /// <inheritdoc/>
-        public void Add(TEntity entity)
+        public async Task<TEntity?> GetByIdAsync(int id, CancellationToken ct)
         {
-            dbSet.Add(entity);
-            dbContext.SaveChanges();
+            var entity = await dbSet.FindAsync(id, ct);
+
+            if (entity is not null)
+                dbContext.Entry(entity).State = EntityState.Detached;
+
+            return entity;
+
         }
 
         /// <inheritdoc/>
-        public void Update(TEntity entity)
+        public async Task<TEntity> AddAsync(TEntity entity, CancellationToken ct)
         {
-            dbSet.Update(entity);
-            dbContext.SaveChanges();
+            var inserted = await dbSet.AddAsync(entity, ct);
+            await dbContext.SaveChangesAsync(ct);
+
+            return inserted.Entity;
         }
 
         /// <inheritdoc/>
-        public void Remove(int id)
+        public async Task<TEntity> UpdateAsync(TEntity entity, CancellationToken ct)
         {
-            TEntity? entity = dbSet.Find(id);
+            var inserted = dbSet.Update(entity);
+            await dbContext.SaveChangesAsync(ct);
+
+            return inserted.Entity;
+        }
+
+        /// <inheritdoc/>
+        public async Task RemoveAsync(int id, CancellationToken ct)
+        {
+            TEntity? entity = await dbSet.FindAsync(id, ct);
 
             if (entity is null)
                 return;
@@ -61,7 +74,7 @@ namespace TodoAppSnowlyCode.Data.Repositories
             try
             {
                 dbSet.Remove(entity);
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync(ct);
             }
             catch
             {
