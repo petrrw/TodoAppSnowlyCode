@@ -30,7 +30,18 @@ builder.Services.AddAutoMapper(cfg =>
 });
 
 
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    if (dbContext.Database.GetPendingMigrations().Any())
+        dbContext.Database.Migrate();
+}
+
+
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 // Configure the HTTP request pipeline.
