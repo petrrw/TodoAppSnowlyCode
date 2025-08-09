@@ -7,6 +7,7 @@ using TodoAppSnowlyCode.Data.DbSetup;
 using TodoAppSnowlyCode.Data.Interfaces;
 using TodoAppSnowlyCode.Data.Repositories;
 using TodoAppSnowlyCode.Middlewares;
+using TodoAppSnowlyCode.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
+// This could also be implemented in an extension methods..
 builder.Services.AddScoped<IToDoItemRepository, ToDoItemRepository>();
 builder.Services.AddScoped<IToDoItemService, ToDoItemService>();
 builder.Services.AddScoped<ToDoItemValidator>();
@@ -29,18 +31,22 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<ToDoItemProfile>();
 });
 
-
+// Just for test purposes..
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
+        });
+});
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
-    if (dbContext.Database.GetPendingMigrations().Any())
-        dbContext.Database.Migrate();
-}
-
+app.UseCors("AllowAll");
+app.UpdateDatabase();
 
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 

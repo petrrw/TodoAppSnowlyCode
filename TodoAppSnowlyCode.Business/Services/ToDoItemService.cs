@@ -51,12 +51,13 @@ namespace TodoAppSnowlyCode.Business.Services
             if (!validationRes.IsValid)
                 throw new ValidationException(validationRes.Errors);
 
-            // I know fetching whole item from DB just to check if any record exists is not optimal..
             var itemToBeUpdated = await _repository.GetByIdAsync(id, ct);
 
-            // TODO: CreatedAt shouldnt be changed by update..
             if (itemToBeUpdated is null)
                 return null;
+
+            todoItem.Id = id;
+            todoItem.CreatedAt = itemToBeUpdated.CreatedAt;
 
             var updatedItem = await _repository.UpdateAsync(todoItem, ct);
             return updatedItem;
@@ -65,8 +66,8 @@ namespace TodoAppSnowlyCode.Business.Services
         /// <inheritdoc />
         public async Task<bool> DeleteAsync(int id, CancellationToken ct)
         {
-            // Doesn't exist
-            if (_repository.GetByIdAsync(id, ct) is null)
+            // Fetching whole item from DB just to check if record exists is not optimal..
+            if (await _repository.GetByIdAsync(id, ct) is null)
                 return false;
 
             await _repository.RemoveAsync(id, ct);
