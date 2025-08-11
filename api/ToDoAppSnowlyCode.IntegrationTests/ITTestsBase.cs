@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ToDoAppSnowlyCode.IntegrationTests
+﻿namespace ToDoAppSnowlyCode.IntegrationTests
 {
     /// <summary>
     /// Base class for IT tests that need to work with in-memory test server.

@@ -9,14 +9,14 @@ namespace TodoAppSnowlyCode.Business.Services
     public class ToDoItemService : IToDoItemService
     {
         private readonly IToDoItemRepository _repository;
-        private readonly ToDoItemValidator _validator;
+        private readonly IValidator<ToDoItem> _validator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ToDoItemService"/> class.
         /// </summary>
         /// <param name="repository">Repository providing data access for working with ToDo items.</param>
         /// <param name="validator">ToDo items validator.</param>
-        public ToDoItemService(IToDoItemRepository repository, ToDoItemValidator validator)
+        public ToDoItemService(IToDoItemRepository repository, IValidator<ToDoItem> validator)
         {
             _repository = repository;
             _validator = validator;

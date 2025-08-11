@@ -8,6 +8,8 @@ using TodoAppSnowlyCode.Data.Interfaces;
 using TodoAppSnowlyCode.Data.Repositories;
 using TodoAppSnowlyCode.Middlewares;
 using TodoAppSnowlyCode.Extensions;
+using FluentValidation;
+using TodoAppSnowlyCode.Data.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +27,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // This could also be implemented in an extension methods..
 builder.Services.AddScoped<IToDoItemRepository, ToDoItemRepository>();
 builder.Services.AddScoped<IToDoItemService, ToDoItemService>();
-builder.Services.AddScoped<ToDoItemValidator>();
+builder.Services.AddScoped<IValidator<ToDoItem>, ToDoItemValidator>();
 builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddProfile<ToDoItemProfile>();

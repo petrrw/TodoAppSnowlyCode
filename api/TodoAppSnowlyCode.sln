@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "Integra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoAppSnowlyCode.IntegrationTests", "ToDoAppSnowlyCode.IntegrationTests\ToDoAppSnowlyCode.IntegrationTests.csproj", "{3EE4C93A-D0E8-41FF-B9CE-86ADBAA7CB67}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{F528B88C-19DC-4D34-AEA3-96173CCC9BE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoAppSnowlyCode.Business.UnitTests", "ToDoAppSnowlyCode.Business.UnitTests\ToDoAppSnowlyCode.Business.UnitTests.csproj", "{C528A7F7-C993-41E3-BEE3-23841286E288}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,12 +39,17 @@ Global
 		{3EE4C93A-D0E8-41FF-B9CE-86ADBAA7CB67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EE4C93A-D0E8-41FF-B9CE-86ADBAA7CB67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EE4C93A-D0E8-41FF-B9CE-86ADBAA7CB67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C528A7F7-C993-41E3-BEE3-23841286E288}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C528A7F7-C993-41E3-BEE3-23841286E288}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C528A7F7-C993-41E3-BEE3-23841286E288}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C528A7F7-C993-41E3-BEE3-23841286E288}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3EE4C93A-D0E8-41FF-B9CE-86ADBAA7CB67} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{C528A7F7-C993-41E3-BEE3-23841286E288} = {F528B88C-19DC-4D34-AEA3-96173CCC9BE3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E4629092-32B9-47C9-9E58-F1C11F3EF5B3}
