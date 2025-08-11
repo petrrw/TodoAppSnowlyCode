@@ -46,18 +46,21 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 app.UseCors("AllowAll");
+
+// Applies DB migrations
 app.UpdateDatabase();
 
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
-app.UseHttpsRedirection();
+// Swagger enabled in all environments for simplicity
+//if (app.Environment.IsDevelopment())
+//{
+app.UseSwagger();
+    app.UseSwaggerUI();
+//}
+
 
 app.UseAuthorization();
 

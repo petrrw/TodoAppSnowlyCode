@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 function App() {
   const [items, setItems] = useState([]);
-  const api = new ApiClient("http://localhost:5107/api/Todos");
+  const api = new ApiClient(process.env.REACT_APP_BACKENDURL + "/api/Todos")
 
 useEffect(() => {
   api.getAll().then(items => {
