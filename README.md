@@ -11,7 +11,7 @@ V API by se ještě daly vrstvy lépe separovat - např. prezentační vrstva by
 šlo dosáhnout např. využitím jiné architektury, např. CleanCode, ale architektura by dle mého měla především co nejlépe sloužit účelům použití a v tomto případě mi kvůli své jednoduchosti přišla vhodnější méně složitá 3 vrstvá.
 
 # Testy
-Do .sln jsou přidány jednoduché UT pro test logiky validace a servisy pro práci s ToDo itemy a IT pro end-to-end test celého api. Testy se se při úpravách díky regresi snáze odhalí případné zanesené chyby.
+Do .sln jsou přidány jednoduché UT pro test logiky validace a servisy pro práci s ToDo itemy a IT pro end-to-end test celého api. Testy se při úpravách díky regresi snáze odhalí případné zanesené chyby.
 Ideální by samozřejmě bylo mít pokryto více funkcionality, jde spíše o náčrt.
 
 # React client (/client)
