@@ -15,6 +15,8 @@ const ToDoItem = ({ id, title, createdAt, dueDate, isCompleted, onDelete, onUpda
       dueDate: actualDueDate,
       isCompleted: actualIsCompleted,
     });
+
+    setInEdit(false)
   };
 
   const handleAdd = () => {

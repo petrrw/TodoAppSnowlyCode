@@ -3,7 +3,7 @@
     /// <summary>
     /// Base class for IT tests that need to work with in-memory test server.
     /// </summary>
-    public class ITTestsBase
+    public abstract class ITTestsBase
     {
         protected TestServerFactory _serverFactory = null!;
 

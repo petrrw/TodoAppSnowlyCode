@@ -27,7 +27,9 @@ namespace ToDoAppSnowlyCode.IntegrationTests
 
             var returnedItem = JsonConvert.DeserializeObject<ToDoItem>(content);
 
-            Assert.That(returnedItem?.Title, Is.EqualTo(todo.Title));
+            Assert.That(returnedItem, Is.Not.Null);
+            Assert.That(returnedItem.Id, Is.GreaterThan(0));
+            Assert.That(returnedItem.Title, Is.EqualTo(todo.Title));
             Assert.That(returnedItem.DueDate, Is.EqualTo(todo.DueDate));
             Assert.That(returnedItem.IsCompleted, Is.EqualTo(todo.IsCompleted));
             Assert.That(DateOnly.FromDateTime(returnedItem.CreatedAt), Is.EqualTo(DateOnly.FromDateTime(DateTime.Now)));

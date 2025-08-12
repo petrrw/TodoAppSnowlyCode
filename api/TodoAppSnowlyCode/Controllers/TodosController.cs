@@ -61,7 +61,7 @@ namespace TodoAppSnowlyCode.Controllers
             if (await _todoItemService.DeleteAsync(id, ct) is false)
                 return NotFound();
 
-            return Ok();
+            return NoContent();
         }
     }
 }

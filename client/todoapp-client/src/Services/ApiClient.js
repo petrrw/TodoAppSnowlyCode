@@ -4,36 +4,45 @@ class ApiClient {
     this.todosEndpoint = `${baseUrl}/api/Todos`;
   }
 
+  async request(url, options = {}) {
+    const response = await fetch(url, options);
+
+    if (!response.ok) 
+      throw new Error("Request failed")
+
+    if (response.status === 204) {
+      return null;
+    }
+
+    return response.json()
+  }
+
   async create(todo) {
-    const response = await fetch(this.todosEndpoint, {
+    return this.request(this.todosEndpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(todo),
     });
-    return response.json();
   }
 
   async getAll() {
-    const response = await fetch(this.todosEndpoint);
-    return response.json();
+    return this.request(this.todosEndpoint);
   }
 
   async getById(id) {
-    const response = await fetch(`${this.todosEndpoint}/${id}`);
-    return response.json();
+    return this.request(`${this.todosEndpoint}/${id}`);
   }
 
   async update(id, todo) {
-    const response = await fetch(`${this.todosEndpoint}/${id}`, {
+    return this.request(`${this.todosEndpoint}/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(todo),
     });
-    return response.json();
   }
 
   async delete(id) {
-    await fetch(`${this.todosEndpoint}/${id}`, {
+    return this.request(`${this.todosEndpoint}/${id}`, {
       method: 'DELETE',
     });
   }

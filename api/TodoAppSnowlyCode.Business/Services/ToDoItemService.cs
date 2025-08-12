@@ -44,13 +44,6 @@ namespace TodoAppSnowlyCode.Business.Services
         /// <inheritdoc />
         public async Task<ToDoItem?> UpdateAsync(int id, ToDoItem todoItem, CancellationToken ct)
         {
-            var validationRes = _validator.Validate(todoItem);
-
-            // Instead of throwing an exception, it's better to return a validation result, for example using ErrorOr library or custom result type,
-            // so the caller can handle errors explicitly and it's also propably a little bit faster, but for now, i'll leave it like this for simplicity...
-            if (!validationRes.IsValid)
-                throw new ValidationException(validationRes.Errors);
-
             var itemToBeUpdated = await _repository.GetByIdAsync(id, ct);
 
             if (itemToBeUpdated is null)
@@ -58,6 +51,13 @@ namespace TodoAppSnowlyCode.Business.Services
 
             todoItem.Id = id;
             todoItem.CreatedAt = itemToBeUpdated.CreatedAt;
+
+            var validationRes = _validator.Validate(todoItem);
+
+            // Instead of throwing an exception, it's better to return a validation result, for example using ErrorOr library or custom result type,
+            // so the caller can handle errors explicitly and it's also propably a little bit faster, but for now, i'll leave it like this for simplicity...
+            if (!validationRes.IsValid)
+                throw new ValidationException(validationRes.Errors);
 
             var updatedItem = await _repository.UpdateAsync(todoItem, ct);
             return updatedItem;

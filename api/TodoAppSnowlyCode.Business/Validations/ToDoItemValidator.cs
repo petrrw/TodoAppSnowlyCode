@@ -15,6 +15,9 @@ namespace TodoAppSnowlyCode.Business.Validations
             RuleFor(p => p.IsCompleted)
                 .NotNull();
 
+            RuleFor(p => p.CreatedAt)
+                .NotNull();
+
             // It could be nice to check whether the DueDate is in future or > CreatedAt, but I'll leave it like this so creating new records from swagger is not so annoying..
         }
     }
